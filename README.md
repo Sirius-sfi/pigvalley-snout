@@ -2,7 +2,7 @@
 
 An experiment on dynamic multi attributed outcrop model visualization using point sets.
 
-# Build and requestAnimationFrame
+# Build and run
 
 Requires [Node](https://nodejs.org) and a browser with good WebGL support. Uses parcel to bundle it all up into the dist folder.
 

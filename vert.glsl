@@ -19,6 +19,6 @@ void main() {
   mvPosition.x = mvPosition.x + sin(time + segmentData.b) * 0.05 * segmentData.r + sin(time + segmentData.b) * 0.5 * segmentData.b;
   mvPosition.y = mvPosition.y + cos(time + segmentData.b) * 0.8 * segmentData.g + sin(time + segmentData.r) * 0.08 * segmentData.b;
   mvPosition.z = -2.0 - 1.0 * sin(time) + (segmentData.r + segmentData.g + segmentData.b) * 0.002;
-  gl_PointSize = 20.0; //size * (3.0 * 1024.0 / -mvPosition.z);
+  gl_PointSize = 2.0;
   gl_Position = projectionMatrix * mvPosition;
 }

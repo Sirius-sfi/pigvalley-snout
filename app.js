@@ -16,12 +16,14 @@ function init() {
 
   let divisor = 4;
 
-  camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000);
-  camera.position.z = 2.0;
+  camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000)
+  camera.position.x = 1.5
+  camera.position.y = -0.5
+  camera.position.z = 2.0
+  camera.lookAt(0, 0, 0)
 
   scene = new THREE.Scene();
   uniforms = {
-    spark: { value: new THREE.TextureLoader().load(require('./spark1.png')) },
     image: { value: new THREE.TextureLoader().load(require('./kamieneColors.png')) },
     segments: { value: new THREE.TextureLoader().load(require('./kamieneSegments.png')) },
     time: { type: 'f', value: 0 }

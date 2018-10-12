@@ -8,7 +8,8 @@ uniform float time;
 varying vec3 vColor;
 
 void main() {
-  vec2 imageCoord = (position.xy) + 0.5;
+  vec2 imageCoord = 0.5 * (position.xy) + 0.5;
+
   vec4 imageData = texture2D(image, imageCoord);
   vec4 segmentData = texture2D(segments, imageCoord);
 
@@ -16,12 +17,16 @@ void main() {
   //vColor.r = 1.0;
 
   vec3 newPosition = position;
-  newPosition.x = newPosition.x + sin(time + segmentData.b) * 0.05 * segmentData.r + sin(time + segmentData.b) * 0.5 * segmentData.b;
-  newPosition.y = newPosition.y + cos(time + segmentData.b) * 0.8 * segmentData.g + sin(time + segmentData.r) * 0.08 * segmentData.b;
-  newPosition.z = -2.0 -0.01 * sin(time) + (segmentData.r + segmentData.g + segmentData.b) * 0.002;
+  newPosition.x = newPosition.x; //+ sin(time + segmentData.b) * 0.05 * segmentData.r + sin(time + segmentData.b) * 0.5 * segmentData.b;
+  newPosition.y = newPosition.y; //+ cos(time + segmentData.b) * 0.8 * segmentData.g + sin(time + segmentData.r) * 0.08 * segmentData.b;
+  newPosition.z = sin(time); //-2.0 -0.01 * sin(time) + (segmentData.r + segmentData.g + segmentData.b) * 0.002;
   //newPosition.z = -3.0;
 
   vec4 mvPosition = modelViewMatrix * vec4(newPosition, 1.0);
+
+  vec3 point = position;
+  point.z = 0.0;
+
   gl_PointSize = 2.0;
-  gl_Position = projectionMatrix * mvPosition;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(point, 1.0);
 }

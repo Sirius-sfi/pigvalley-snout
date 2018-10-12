@@ -31,7 +31,7 @@ function init() {
     vertexShader:   vert,
     fragmentShader: frag,
     blending:       THREE.NormalBlending,
-    depthTest:      false,
+    depthTest:      true,
     transparent:    true,
     vertexColors:   true
   })
@@ -50,7 +50,7 @@ function init() {
 
   geometry.addAttribute('position', new THREE.BufferAttribute(positions, 3))
   model = new THREE.Points(geometry, material)
-  scene.add(model)  
+  scene.add(model)
 
   var grid = new THREE.GridHelper(2.0, 20)
   scene.add(grid)
@@ -82,12 +82,14 @@ function animate(time) {
   render(time / 1000.0)
 }
 
+var cameraRadius = 1.0;
+
 function render(time) {
   uniforms.time.value = time
 
-  camera.position.x = 1.0 * Math.cos(time)
-  camera.position.y = 1.0 * Math.sin(time)
-  camera.position.z = 3.0
+  camera.position.x = cameraRadius * Math.cos(time)
+  camera.position.y = cameraRadius * Math.sin(time)
+  camera.position.z = 4.0
   camera.lookAt(origin)
   camera.up.set(0, 1, 0)
 

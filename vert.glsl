@@ -13,19 +13,10 @@ void main() {
   vec4 imageData = texture2D(image, imageCoord);
   vec4 segmentData = texture2D(segments, imageCoord);
 
-  vColor = imageData.xyz;
-  //vColor.r = 1.0;
-
-  vec3 newPosition = position;
-  newPosition.x = newPosition.x; //+ sin(time + segmentData.b) * 0.05 * segmentData.r + sin(time + segmentData.b) * 0.5 * segmentData.b;
-  newPosition.y = newPosition.y; //+ cos(time + segmentData.b) * 0.8 * segmentData.g + sin(time + segmentData.r) * 0.08 * segmentData.b;
-  newPosition.z = sin(time); //-2.0 -0.01 * sin(time) + (segmentData.r + segmentData.g + segmentData.b) * 0.002;
-  //newPosition.z = -3.0;
-
-  vec4 mvPosition = modelViewMatrix * vec4(newPosition, 1.0);
+  vColor = imageData.rgb;
 
   vec3 point = position;
-  point.z = 0.0;
+  point.z = dot(segmentData.rgb, vec3(0.3, 0.2, 0.1));
 
   gl_PointSize = 2.0;
   gl_Position = projectionMatrix * modelViewMatrix * vec4(point, 1.0);

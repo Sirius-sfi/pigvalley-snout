@@ -17,8 +17,8 @@ function init() {
   let divisor = 4;
 
   camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000)
-  camera.position.x = 1.5
-  camera.position.y = -0.5
+  //camera.position.x = 1.5
+  camera.position.y = 0.5
   camera.position.z = 2.0
   camera.lookAt(0, 0, 0)
 
@@ -53,6 +53,22 @@ function init() {
 
   geometry.addAttribute('position', new THREE.BufferAttribute(positions, 3));
   particleSystem = new THREE.Points(geometry, shaderMaterial);
+
+  var grid = new THREE.GridHelper(2.0, 10);
+  scene.add(grid);
+
+  var origin = new THREE.Vector3( 0, 0, 0 );
+
+  var directionX = new THREE.Vector3(1, 0, 0);
+  directionX.normalize();
+  var directionY = new THREE.Vector3(0, 1, 0);
+  directionY.normalize();
+  var directionZ = new THREE.Vector3(0, 0, 1);
+  directionZ.normalize();
+
+  scene.add(new THREE.ArrowHelper(directionX, origin, 1.0, 0xff0000));
+  scene.add(new THREE.ArrowHelper(directionY, origin, 1.0, 0x00ff00));
+  scene.add(new THREE.ArrowHelper(directionZ, origin, 1.0, 0x0000ff));
 
   scene.add(particleSystem);
 

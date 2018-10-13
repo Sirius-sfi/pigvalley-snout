@@ -1,4 +1,5 @@
-import * as THREE from 'three';
+import * as THREE from 'three'
+import OrbitControls from 'three-orbitcontrols'
 
 let vert = require('./vert.glsl')
 let frag = require('./frag.glsl')
@@ -18,6 +19,11 @@ function init() {
   let divisor = 2;
 
   camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.01, 10000)
+  camera.position.x = 0.0
+  camera.position.y = 0.0
+  camera.position.z = 4.0
+  camera.lookAt(origin)
+  camera.up.set(0, 1, 0)
 
   scene = new THREE.Scene()
   uniforms = {
@@ -70,6 +76,11 @@ function init() {
   var container = document.getElementById('container')
   container.appendChild(renderer.domElement)
 
+  const controls = new OrbitControls(camera, renderer.domElement)
+  controls.enableDamping = true
+  controls.dampingFactor = 0.25
+  controls.enableZoom = false
+
   window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight
     camera.updateProjectionMatrix()
@@ -87,11 +98,13 @@ var cameraRadius = 1.0;
 function render(time) {
   uniforms.time.value = time
 
+/*
   camera.position.x = cameraRadius * Math.cos(time)
   camera.position.y = cameraRadius * Math.sin(time)
   camera.position.z = 4.0
   camera.lookAt(origin)
   camera.up.set(0, 1, 0)
+*/
 
   renderer.render(scene, camera)
 }

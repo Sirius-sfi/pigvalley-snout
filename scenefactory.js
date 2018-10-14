@@ -64,6 +64,7 @@ function cloud() {
     vertexShader:   vert,
     fragmentShader: frag,
     blending:       THREE.NormalBlending,
+    side:           THREE.DoubleSide,
     depthTest:      true,
     transparent:    true,
     vertexColors:   true
@@ -85,7 +86,7 @@ function cloud() {
   geometry.addAttribute('position', new THREE.BufferAttribute(positions, 3))
   geometry.addAttribute('pindex', new THREE.InstancedBufferAttribute(index, 1))
 
-  let object = new THREE.Points(geometry, material)
+  let object = new THREE.Mesh(geometry, material)
   return { object }
 }
 

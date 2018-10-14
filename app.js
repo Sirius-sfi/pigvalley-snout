@@ -3,7 +3,8 @@ import Vue from 'vue/dist/vue.js' //PROD: import Vue from 'vue'
 import * as THREE from 'three'
 import OrbitControls from 'three-orbitcontrols'
 
-import { createGrid, createScene, createCamera, createImage } from './scene'
+import { createViewer } from './viewer'
+import { createGrid, createImage } from './scene'
 
 var renderer, scene, camera;
 var model, uniforms;
@@ -40,8 +41,11 @@ var app = new Vue({
 })
 
 function init() {
-  camera = createCamera()
-  scene = createScene()
+  let viewer = createViewer(window)
+
+  camera = viewer.camera
+  scene = viewer.scene
+  renderer = viewer.renderer
 
   let theIt = createImage()
   model = theIt.model
@@ -50,23 +54,7 @@ function init() {
   scene.add(model)
   scene.add(createGrid())
 
-  renderer = new THREE.WebGLRenderer()
-  renderer.setPixelRatio(window.devicePixelRatio)
-  renderer.setSize(window.innerWidth, window.innerHeight)
-
-  var container = document.getElementById('container')
-  container.appendChild(renderer.domElement)
-
-  const controls = new OrbitControls(camera, renderer.domElement)
-  controls.enableDamping = true
-  controls.dampingFactor = 0.25
-  controls.enableZoom = false
-
-  window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight
-    camera.updateProjectionMatrix()
-    renderer.setSize(window.innerWidth, window.innerHeight)
-  }, false)
+  viewer.attachToElement('container')
 }
 
 function animate(time) {

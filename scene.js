@@ -46,23 +46,6 @@ function createImage() {
   return { model, uniforms }
 }
 
-function createScene() {
-  let scene = new THREE.Scene()
-  return scene
-}
-
-function createCamera() {
-  let camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.01, 10000)
-
-  camera.position.x = 0.0
-  camera.position.y = 0.0
-  camera.position.z = 3.0
-  camera.lookAt(origin)
-  camera.up.set(0, 1, 0)
-
-  return camera
-}
-
 function createGrid() {
   let result = new THREE.Group()
 
@@ -82,7 +65,5 @@ function createGrid() {
 
 module.exports = {
   createGrid,
-  createScene,
-  createCamera,
   createImage
 }

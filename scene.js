@@ -41,26 +41,33 @@ function createImage() {
   }
 
   geometry.addAttribute('position', new THREE.BufferAttribute(positions, 3))
-  let model = new THREE.Points(geometry, material)
+  let object = new THREE.Points(geometry, material)
 
-  return { model, uniforms }
+  function update(time) {
+    uniforms.time.value = time
+    console.log('update', time)
+  }
+
+  return { object, update }
 }
 
 function createGrid() {
-  let result = new THREE.Group()
+  var origin = new THREE.Vector3(0, 0, 0);
+
+  let object = new THREE.Group()
 
   var grid = new THREE.GridHelper(2.0, 20)
-  result.add(grid)
+  object.add(grid)
 
   var directionX = new THREE.Vector3(1, 0, 0)
   var directionY = new THREE.Vector3(0, 1, 0)
   var directionZ = new THREE.Vector3(0, 0, 1)
 
-  result.add(new THREE.ArrowHelper(directionX, origin, 1.0, 0xff0000))
-  result.add(new THREE.ArrowHelper(directionY, origin, 1.0, 0x00ff00))
-  result.add(new THREE.ArrowHelper(directionZ, origin, 1.0, 0x0000ff))
+  object.add(new THREE.ArrowHelper(directionX, origin, 1.0, 0xff0000))
+  object.add(new THREE.ArrowHelper(directionY, origin, 1.0, 0x00ff00))
+  object.add(new THREE.ArrowHelper(directionZ, origin, 1.0, 0x0000ff))
 
-  return result
+  return { object }
 }
 
 module.exports = {

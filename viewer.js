@@ -31,7 +31,11 @@ function createViewer(window) {
     container.appendChild(renderer.domElement)
   }
 
-  return { window, scene, camera, renderer, attachToElement }
+  function render(time) {
+    renderer.render(scene, camera)  
+  }
+
+  return { window, scene, camera, renderer, attachToElement, render }
 }
 
 module.exports = {

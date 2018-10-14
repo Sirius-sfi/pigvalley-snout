@@ -6,10 +6,9 @@ import OrbitControls from 'three-orbitcontrols'
 import { createViewer } from './viewer'
 import { createGrid, createImage } from './scene'
 
-var renderer, scene, camera;
-var model, uniforms;
 
-var origin = new THREE.Vector3(0, 0, 0);
+var viewer
+var updaters = []
 
 init();
 animate();
@@ -41,18 +40,14 @@ var app = new Vue({
 })
 
 function init() {
-  let viewer = createViewer(window)
+  viewer = createViewer(window)
 
-  camera = viewer.camera
-  scene = viewer.scene
-  renderer = viewer.renderer
+  let image = createImage()
+  viewer.scene.add(image.object)
+  updaters.push(image.update)
 
-  let theIt = createImage()
-  model = theIt.model
-  uniforms = theIt.uniforms
-
-  scene.add(model)
-  scene.add(createGrid())
+  let grid = createGrid();
+  viewer.scene.add(grid.object)
 
   viewer.attachToElement('container')
 }
@@ -65,7 +60,8 @@ function animate(time) {
 var cameraRadius = 1.0;
 
 function render(time) {
-  uniforms.time.value = time
+  updaters.forEach(updater => updater(time))
+  viewer.render(time)
 
 /*
   camera.position.x = cameraRadius * Math.cos(time)
@@ -74,6 +70,4 @@ function render(time) {
   camera.lookAt(origin)
   camera.up.set(0, 1, 0)
 */
-
-  renderer.render(scene, camera)
 }

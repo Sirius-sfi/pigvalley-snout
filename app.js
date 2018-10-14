@@ -34,6 +34,7 @@ function setupViewer() {
 
   viewer.addItem(factory.image())
   viewer.addItem(factory.grid())
+  viewer.addItem(factory.cloud())
 
   viewer.attachToElement('container')
 

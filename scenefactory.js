@@ -49,6 +49,46 @@ function image() {
   return { object, update }
 }
 
+function cloud() {
+  const vert = require('./cloudvert.glsl')
+  const frag = require('./cloudfrag.glsl')
+
+  let uniforms = {
+    image: { value: new THREE.TextureLoader().load(require('./kamieneColors.png')) },
+    segments: { value: new THREE.TextureLoader().load(require('./kamieneSegments.png')) },
+    time: { type: 'f', value: 0 }
+  }
+
+  let material = new THREE.ShaderMaterial({
+    uniforms:       uniforms,
+    vertexShader:   vert,
+    fragmentShader: frag,
+    blending:       THREE.NormalBlending,
+    depthTest:      true,
+    transparent:    true,
+    vertexColors:   true
+  })
+
+  let positions = new Float32Array([
+    0.025, -0.025, 0,
+    -0.025, 0.025, 0,
+    0, 0, 0.025
+  ])
+
+  let instances = 100*100
+  let index = new Float32Array(instances)
+  for (let i=0; i < instances; i++) {
+    index[i] = i
+  }
+
+  var geometry = new THREE.InstancedBufferGeometry()
+  geometry.addAttribute('position', new THREE.BufferAttribute(positions, 3))
+  geometry.addAttribute('pindex', new THREE.InstancedBufferAttribute(index, 1))
+
+  let object = new THREE.Points(geometry, material)
+  return { object }
+}
+
 var origin = new THREE.Vector3(0, 0, 0);
 function grid() {
   let object = new THREE.Group()
@@ -68,6 +108,7 @@ function grid() {
 }
 
 module.exports = {
+  cloud,
   image,
   grid
 }

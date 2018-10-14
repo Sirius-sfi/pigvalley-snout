@@ -11,12 +11,34 @@
 				margin: 0px;
 				overflow: hidden;
 			}
+
+			#tools {
+				position: fixed;
+				bottom: 0%;
+				padding: 5px;
+				width: 100%;
+				text-align: center;
+				background: #555B;
+			}
+
+			button {
+				background: #00000000;
+				padding: 5px;
+				margin: 10px;
+				border: none;
+			}
 		</style>
 	</head>
 
 	<body>
-		<div id="container"></div>
-
+		<div id="app">
+			<div id="tools">
+				<button v-for="tool in tools" class="tool" v-on:click="toolClick(tool.key)">
+					<img :src="tool.image" :title="tool.text">
+				</button>
+			</div>
+		</div>
+		<div id="container" style="bakground: red;"></div>
     <script src="./app.js"></script>
 </body>
 </html>

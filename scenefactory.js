@@ -4,8 +4,8 @@ function image() {
   const imageWidth = 2048;
   const imageHeight = 2048;
 
-  const vert = require('./vert.glsl')
-  const frag = require('./frag.glsl')
+  const vert = require('./imagevert.glsl')
+  const frag = require('./imagefrag.glsl')
 
   const divisor = 16;
 

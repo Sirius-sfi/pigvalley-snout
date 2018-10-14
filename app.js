@@ -32,7 +32,7 @@ var app = new Vue({
 function setupViewer() {
   let viewer = createViewer(window)
 
-  viewer.addItem(factory.cloud())
+  viewer.addItem(factory.image())
   viewer.addItem(factory.grid())
 
   viewer.attachToElement('container')

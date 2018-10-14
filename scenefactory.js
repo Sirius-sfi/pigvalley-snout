@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 
-function cloud() {
+function image() {
   const imageWidth = 2048;
   const imageHeight = 2048;
 
@@ -68,6 +68,6 @@ function grid() {
 }
 
 module.exports = {
-  cloud,
+  image,
   grid
 }

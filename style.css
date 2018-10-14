@@ -1,0 +1,22 @@
+body {
+  color: #ffffff;
+  background-color: #000000;
+  margin: 0px;
+  overflow: hidden;
+}
+
+#tools {
+  position: fixed;
+  bottom: 0%;
+  padding: 5px;
+  width: 100%;
+  text-align: center;
+  background: #555B;
+}
+
+button {
+  background: #00000000;
+  padding: 5px;
+  margin: 10px;
+  border: none;
+}

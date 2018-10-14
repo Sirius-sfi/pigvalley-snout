@@ -1,7 +1,7 @@
 import Vue from 'vue/dist/vue.js' //PROD: import Vue from 'vue'
 
 import { createViewer } from './viewer'
-import factory from './scene'
+import factory from './scenefactory'
 
 const tools = [
   { key: 'brain', text: 'Hello', image: require('./images/brain.png') },

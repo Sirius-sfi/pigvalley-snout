@@ -1,7 +1,6 @@
 import * as THREE from 'three'
-import OrbitControls from 'three-orbitcontrols'
 
-function createImage() {
+function cloud() {
   const imageWidth = 2048;
   const imageHeight = 2048;
 
@@ -45,23 +44,21 @@ function createImage() {
 
   function update(time) {
     uniforms.time.value = time
-    console.log('update', time)
   }
 
   return { object, update }
 }
 
-function createGrid() {
-  var origin = new THREE.Vector3(0, 0, 0);
-
+var origin = new THREE.Vector3(0, 0, 0);
+function grid() {
   let object = new THREE.Group()
 
-  var grid = new THREE.GridHelper(2.0, 20)
+  let grid = new THREE.GridHelper(2.0, 20)
   object.add(grid)
 
-  var directionX = new THREE.Vector3(1, 0, 0)
-  var directionY = new THREE.Vector3(0, 1, 0)
-  var directionZ = new THREE.Vector3(0, 0, 1)
+  let directionX = new THREE.Vector3(1, 0, 0)
+  let directionY = new THREE.Vector3(0, 1, 0)
+  let directionZ = new THREE.Vector3(0, 0, 1)
 
   object.add(new THREE.ArrowHelper(directionX, origin, 1.0, 0xff0000))
   object.add(new THREE.ArrowHelper(directionY, origin, 1.0, 0x00ff00))
@@ -71,6 +68,6 @@ function createGrid() {
 }
 
 module.exports = {
-  createGrid,
-  createImage
+  cloud,
+  grid
 }

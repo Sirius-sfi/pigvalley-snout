@@ -1,17 +1,7 @@
 import Vue from 'vue/dist/vue.js' //PROD: import Vue from 'vue'
 
-import * as THREE from 'three'
-import OrbitControls from 'three-orbitcontrols'
-
 import { createViewer } from './viewer'
-import { createGrid, createImage } from './scene'
-
-
-var viewer
-var updaters = []
-
-init();
-animate();
+import factory from './scene'
 
 const tools = [
   { key: 'brain', text: 'Hello', image: require('./images/brain.png') },
@@ -33,41 +23,29 @@ var app = new Vue({
   },
   methods: {
     toolClick(tool) {
-      let action = actions[tool] || defaultAction
+      let action = this.$data.actions[tool] || defaultAction
       action(tool)
     }
   }
 })
 
-function init() {
-  viewer = createViewer(window)
+function setupViewer() {
+  let viewer = createViewer(window)
 
-  let image = createImage()
-  viewer.scene.add(image.object)
-  updaters.push(image.update)
-
-  let grid = createGrid();
-  viewer.scene.add(grid.object)
+  viewer.addItem(factory.cloud())
+  viewer.addItem(factory.grid())
 
   viewer.attachToElement('container')
+
+  return viewer
 }
 
-function animate(time) {
+function animate(animationTime) {
   requestAnimationFrame(animate)
-  render(time / 1000.0)
+  const modelTime = animationTime / 1000.0
+  viewer.update(modelTime)
+  viewer.render(modelTime)
 }
 
-var cameraRadius = 1.0;
-
-function render(time) {
-  updaters.forEach(updater => updater(time))
-  viewer.render(time)
-
-/*
-  camera.position.x = cameraRadius * Math.cos(time)
-  camera.position.y = cameraRadius * Math.sin(time)
-  camera.position.z = 4.0
-  camera.lookAt(origin)
-  camera.up.set(0, 1, 0)
-*/
-}
+const viewer = setupViewer()
+animate();

@@ -50,6 +50,7 @@ function createScene() {
   let scene = new THREE.Scene()
   return scene
 }
+
 function createCamera() {
   let camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.01, 10000)
 
@@ -62,8 +63,26 @@ function createCamera() {
   return camera
 }
 
+function createGrid() {
+  let result = new THREE.Group()
+
+  var grid = new THREE.GridHelper(2.0, 20)
+  result.add(grid)
+
+  var directionX = new THREE.Vector3(1, 0, 0)
+  var directionY = new THREE.Vector3(0, 1, 0)
+  var directionZ = new THREE.Vector3(0, 0, 1)
+
+  result.add(new THREE.ArrowHelper(directionX, origin, 1.0, 0xff0000))
+  result.add(new THREE.ArrowHelper(directionY, origin, 1.0, 0x00ff00))
+  result.add(new THREE.ArrowHelper(directionZ, origin, 1.0, 0x0000ff))
+
+  return result
+}
+
 module.exports = {
-  createScene, 
+  createGrid,
+  createScene,
   createCamera,
   createImage
 }

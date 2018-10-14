@@ -3,7 +3,7 @@ import Vue from 'vue/dist/vue.js' //PROD: import Vue from 'vue'
 import * as THREE from 'three'
 import OrbitControls from 'three-orbitcontrols'
 
-import { createScene, createCamera, createImage } from './scene'
+import { createGrid, createScene, createCamera, createImage } from './scene'
 
 var renderer, scene, camera;
 var model, uniforms;
@@ -48,17 +48,7 @@ function init() {
   uniforms = theIt.uniforms
 
   scene.add(model)
-
-  var grid = new THREE.GridHelper(2.0, 20)
-  scene.add(grid)
-
-  var directionX = new THREE.Vector3(1, 0, 0)
-  var directionY = new THREE.Vector3(0, 1, 0)
-  var directionZ = new THREE.Vector3(0, 0, 1)
-
-  scene.add(new THREE.ArrowHelper(directionX, origin, 1.0, 0xff0000))
-  scene.add(new THREE.ArrowHelper(directionY, origin, 1.0, 0x00ff00))
-  scene.add(new THREE.ArrowHelper(directionZ, origin, 1.0, 0x0000ff))
+  scene.add(createGrid())
 
   renderer = new THREE.WebGLRenderer()
   renderer.setPixelRatio(window.devicePixelRatio)
